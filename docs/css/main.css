@@ -233,47 +233,23 @@ input:checked + .slider:before {
 }
 
 .chart__legend--item.one-color:before {
-    background-color: #005578;
-}
-
-.chart__legend--item.two-colors-first:before { /* También sirve para hombres */
-    background-color: #FFB612;
-}
-
-.chart__legend--item.two-colors-second:before { /* También sirve para mujeres */
-    background-color: #005578;
-}
-
-.chart__legend--item.three-colors-first:before {
-    background-color: #FFB612;
-}
-
-.chart__legend--item.three-colors-second:before {
-    background-color: #005578;
-}
-
-.chart__legend--item.three-colors-third:before {
-    background-color: #9B918B;
+    background-color: #081C29;
 }
 
 .chart__legend--item.more-colors-first:before {
-    background-color: #FFB612;
+    background-color: #081C29;
 }
 
 .chart__legend--item.more-colors-second:before {
-    background-color: #7B96AA;
+    background-color: #99E6FC;
 }
 
 .chart__legend--item.more-colors-third:before {
-    background-color: #005578;
+    background-color: #526069;
 }
 
 .chart__legend--item.more-colors-fourth:before {
-    background-color: #9B918B;
-}
-
-.chart__legend--item.more-colors-fifth:before {
-    background-color: #5F5C59;
+    background-color: #DEDEDE;
 }
 
 /* VISUALIZACIÓN */
