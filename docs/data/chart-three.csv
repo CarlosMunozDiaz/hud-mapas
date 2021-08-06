@@ -1,4 +1,4 @@
-city,within_100m,within_100-200m,within_200-400m,within_400m-1km
+city,within_100m,within_100_200m,within_200_400m,within_400m_1km
 Nassau,19%,12%,22%,40%
 San José,21%,15%,24%,31%
 Bogotá,12%,12%,25%,43%
