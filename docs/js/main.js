@@ -66,14 +66,16 @@ function getFirstChart() {
             .call(wrap, 130);
 
         //Visualización de datos
-        window.addEventListener('scroll', function() {
-            if (!chartBlock.node().classList.contains('visible')){
-                if(isElementInViewport(chartBlock.node())){
-                    chartBlock.node().classList.add('visible');
-                    initChart();
-                }                
-            }
-        });
+        // window.addEventListener('scroll', function() {
+        //     if (!chartBlock.node().classList.contains('visible')){
+        //         if(isElementInViewport(chartBlock.node())){
+        //             chartBlock.node().classList.add('visible');
+        //             initChart();
+        //         }                
+        //     }
+        // });
+
+        initChart();
 
         function initChart() {
             chart.selectAll(".bar")
@@ -410,63 +412,7 @@ function getThirdChart() {
                 .duration(3000)
                 .attr("x", function(d) { return x(d[0]); })	
                 .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-        }
-
-        // function initChart() {
-        //     chart.selectAll(".bar")
-        //         .data(data)
-        //         .enter()
-        //         .append("rect")
-        //         .attr('class', function(d, i) { return `bar bar-${i}`; })
-        //         .style('fill', one_color)
-        //         .attr("x", function (d) {
-        //             return x(0);
-        //         })
-        //         .attr("y", function (d) {
-        //             return y(d.tipo_eje + '-' + d.tipo) + y.bandwidth() / 4;
-        //         })            
-        //         .attr("height", y.bandwidth() / 2)
-                // .on('mouseenter mousedown mousemove mouseover', function(d, i, e) {
-                //     let css = e[i].getAttribute('class').split('-')[1];
-                //     //Texto
-                //     let html = `<p class="chart__tooltip--title">${d.tipo}</p>
-                //                 <p class="chart__tooltip--text">${numberWithCommas(d.porcentaje.toFixed(2))}%</p>`; //Solucionar recogida de información
-
-                //     tooltip.html(html);
-
-                //     //Posibilidad visualización línea diferente
-                //     let bars = chartBlock.selectAll('.bar');
-                    
-                //     bars.each(function() {
-                //         this.style.opacity = '0.4';
-                //         if(this.getAttribute('class').indexOf(`bar-${css}`) != -1) {
-                //             this.style.opacity = '1';
-                //         }
-                //     });
-
-                //     //Tooltip
-                //     positionTooltip(window.event, tooltip);
-                //     getInTooltip(tooltip);
-                // })
-                // .on('mouseout', function(d, i, e) {
-                //     //Quitamos los estilos de la línea
-                //     let bars = chartBlock.selectAll('.bar');
-                //     bars.each(function() {
-                //         this.style.opacity = '1';
-                //     });
-
-                //     //Quitamos el tooltip
-                //     getOutTooltip(tooltip); 
-                // })
-        //         .transition()
-        //         .duration(3000)
-        //         .attr("x", function (d) {
-        //             return x(Math.min(0, d.porcentaje));
-        //         })
-        //         .attr("width", function (d) {
-        //             return Math.abs(x(d.porcentaje) - x(0));
-        //         });
-        // }                   
+        }                
     });
 }
 
