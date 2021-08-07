@@ -253,11 +253,26 @@ input:checked + .slider:before {
 }
 
 /* VISUALIZACIÓN */
+.chart--double {
+    display: flex;
+    justify-content: space-between;
+}
+
 .chart__viz {
     width: 100%;
     max-width: 648px;
-    height: 475px; /* 390px; */
+    height: 390px;
     margin: 12px auto 0px auto;
+}
+
+.chart--double .chart__viz {
+    width: 48%;
+    margin: 12px 0px 0px;
+    background-color: red;
+}
+
+.chart__viz.large {
+    height: 475px;
 }
 
 /* VISUALIZACIÓN - Texto ejes (tanto X como Y) */
@@ -315,6 +330,7 @@ input:checked + .slider:before {
     font-size: 12px;
     font-weight: 400;
     line-height: 10px;
+    margin-top: 8px;
 }
 
 .data-source .strong {
@@ -341,5 +357,23 @@ input:checked + .slider:before {
     .chart__legend {
         justify-content: flex-start;
         flex-wrap: wrap;
+    }
+
+    /* Gráfico doble */
+    .chart--double {
+        display: block;
+    }
+    
+    .chart__viz {
+        width: 100%;
+        max-width: 648px;
+        height: 390px;
+        margin: 12px auto 0px auto;
+    }
+    
+    .chart--double .chart__viz {
+        width: 100%;
+        margin: 12px auto 0px auto;
+        background-color: red;
     }
 }
