@@ -261,14 +261,13 @@ input:checked + .slider:before {
 .chart__viz {
     width: 100%;
     max-width: 648px;
-    height: 390px;
+    height: 400px;
     margin: 12px auto 0px auto;
 }
 
 .chart--double .chart__viz {
     width: 48%;
     margin: 12px 0px 0px;
-    background-color: red;
 }
 
 .chart__viz.large {
@@ -374,6 +373,5 @@ input:checked + .slider:before {
     .chart--double .chart__viz {
         width: 100%;
         margin: 12px auto 0px auto;
-        background-color: red;
     }
 }
