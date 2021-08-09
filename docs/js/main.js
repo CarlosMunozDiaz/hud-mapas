@@ -44,20 +44,13 @@ document.getElementById('layers').addEventListener('change', function(e) {
 //Funciones
 function createMap(ciudad_tipo) {
     //Llamada al GitHub
-    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas_topo.json')
+    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas.json')
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             //Características del mapa
-            mymap = L.map('buenosAiresMap').setView([-34.6158037, -58.5033387], 11);
-
-            // mymap.touchZoom.disable();
-            // mymap.doubleClickZoom.disable();
-            // mymap.scrollWheelZoom.disable();
-            // mymap.boxZoom.disable();
-            // mymap.keyboard.disable();
+            mymap = L.map('buenosAiresMap').setView([-34.6158037, -58.5033387], 7);
 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -65,35 +58,7 @@ function createMap(ciudad_tipo) {
                 maxZoom: 22
             }).addTo(mymap);
 
-            L.svg({clickable:true}).addTo(mymap);
-
-            svg = d3.select("#buenosAiresMap")
-                .select("svg")
-                .attr("pointer-events", "auto");
-                
-            g = svg.select("g");
-
-            let transform = d3.geoTransform({point: projectPoint});
-            let path = d3.geoPath().projection(transform);
-
-            let data2 = topojson.feature(data, data.objects['ba_comunas']);
-
-            console.log(data2);
-
-            let lines = g.selectAll("path")
-                .data(data2.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("fill", "red")
-                .attr("fill-opacity", '1');
-
-            mymap.on('viewreset', reset);
-            mymap.on('zoomend', reset);
-
-            function reset(){
-                lines.attr("d", path);
-            }
+            L.geoJson(data).addTo(mymap);
         });
 }
 
