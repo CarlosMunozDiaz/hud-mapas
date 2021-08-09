@@ -9,7 +9,7 @@ let mapHeight = document.getElementById('buenosAiresMap').clientHeight;
 let currentBtn = 'btnZonasVerdesBA', currentLegend = 'ldZonasVerdesBA';
 
 //Por defecto, zonas verdes de Buenos Aires
-createMap('buenos_pop_overcrowd_3');
+createMap('buenos_pop_overcrowd');
 
 document.getElementById('btnZonasVerdesBA').addEventListener('click', function () {
     if(currentBtn != 'btnZonasVerdesBA') {
@@ -44,9 +44,14 @@ document.getElementById('layers').addEventListener('change', function(e) {
 //Funciones
 function createMap(ciudad_tipo) {
     //Llamada al GitHub
-    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/' + ciudad_tipo + '.json')
-        .then(function(response) {
-            return response.json();
+    Promise.all([
+        window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas_topo.json'),
+        window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/' + ciudad_tipo + '.json')
+    ]).then(function([poligonos, dataVerde]) {
+        console.log(poligonos.json());
+        console.log(dataVerde.json());
+            let prueba = [poligonos.json(), dataVerde.json()];
+            return prueba;
         })
         .then(function(data) {
             console.log(data);
