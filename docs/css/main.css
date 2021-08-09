@@ -42,13 +42,13 @@ div {
     margin-top: 20px;
 }
 
-.map .leaflet-overlay-pane svg path {
+/* .map .leaflet-overlay-pane svg path {
     pointer-events: auto;
-}
+} */
 
-.map .active {
+/* .map .active {
     cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 767px) {
     .map {

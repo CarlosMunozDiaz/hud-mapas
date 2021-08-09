@@ -44,7 +44,7 @@ document.getElementById('layers').addEventListener('change', function(e) {
 //Funciones
 function createMap(ciudad_tipo) {
     //Llamada al GitHub
-    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas.json')
+    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/spain_provinces.json')
         .then(function(response) {
             return response.json();
         })
@@ -52,10 +52,8 @@ function createMap(ciudad_tipo) {
             //Características del mapa
             mymap = L.map('buenosAiresMap').setView([-34.6158037, -58.5033387], 7);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 22
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
 
             L.geoJson(data).addTo(mymap);
