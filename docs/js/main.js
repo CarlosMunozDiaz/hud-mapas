@@ -9,7 +9,7 @@ let mapHeight = document.getElementById('buenosAiresMap').clientHeight;
 let currentBtn = 'btnZonasVerdesBA', currentLegend = 'ldZonasVerdesBA';
 
 //Por defecto, zonas verdes de Buenos Aires
-createMap('buenos_pop_overcrowd_2');
+createMap('buenos_pop_overcrowd_3');
 
 document.getElementById('btnZonasVerdesBA').addEventListener('click', function () {
     if(currentBtn != 'btnZonasVerdesBA') {
@@ -49,6 +49,7 @@ function createMap(ciudad_tipo) {
             return response.json();
         })
         .then(function(data) {
+            console.log(data);
             //Características del mapa
             mymap = L.map('buenosAiresMap').setView([-34.6158037, -58.5033387], 11);
 
@@ -66,25 +67,28 @@ function createMap(ciudad_tipo) {
 
             L.svg({clickable:true}).addTo(mymap);
 
-            const overlay = d3.select(mymap.getPanes().overlayPane);
-            const svg = overlay.select('svg').attr("pointer-events", "auto");
-            // create a group that is hidden during zooming
-            const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
+            svg = d3.select("#buenosAiresMap")
+                .select("svg")
+                .attr("pointer-events", "auto");
+                
+            g = svg.select("g");
 
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
             let data2 = topojson.feature(data, data.objects['buenos_pop_overcrowd']);
 
+            console.log(data2);
+
             let lines = g.selectAll("path")
                 .data(data2.features)
                 .enter()
                 .append("path")
                 .attr("d", path)
-                .attr("fill", "#228B22")
+                .attr("fill", "red")
                 .attr("fill-opacity", '1');
 
-            //mymap.on('viewreset', reset);
+            mymap.on('viewreset', reset);
             mymap.on('zoomend', reset);
 
             function reset(){
