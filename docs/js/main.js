@@ -9,7 +9,7 @@ let mapHeight = document.getElementById('buenosAiresMap').clientHeight;
 let currentBtn = 'btnZonasVerdesBA', currentLegend = 'ldZonasVerdesBA';
 
 //Por defecto, zonas verdes de Buenos Aires
-createMap('buenos_aires_overcrowd');
+createMap('buenos_pop_overcrowd');
 
 document.getElementById('btnZonasVerdesBA').addEventListener('click', function () {
     if(currentBtn != 'btnZonasVerdesBA') {
@@ -20,7 +20,7 @@ document.getElementById('btnZonasVerdesBA').addEventListener('click', function (
         //Ejecución funciones
         setBtn(currentBtn);
         setLegend(currentLegend);
-        updateMap('buenos_aires_overcrowd');
+        updateMap('buenos_pop_overcrowd');
     }    
 });
 
@@ -33,7 +33,7 @@ document.getElementById('btnCallesBA').addEventListener('click', function () {
         //Ejecución funciones
         setBtn(currentBtn);
         setLegend(currentLegend);
-        updateMap('buenos_aires_distance');
+        updateMap('buenos_roads_distance');
     }
 });
 
@@ -75,7 +75,9 @@ function createMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            let data2 = topojson.feature(data, data.objects.ciudad_tipo);
+            console.log(data, ciudad_tipo);
+
+            let data2 = topojson.feature(data, data.objects[ciudad_tipo]);
 
             console.log(data2);
 
@@ -112,7 +114,7 @@ function updateMap(ciudad_tipo) {
 
             console.log(data);
 
-            let data2 = topojson.feature(data, data.objects.ciudad_tipo); 
+            let data2 = topojson.feature(data, data.objects[ciudad_tipo]); 
             
             console.log(data2);
 
