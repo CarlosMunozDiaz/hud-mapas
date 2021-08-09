@@ -9,7 +9,7 @@ let mapHeight = document.getElementById('buenosAiresMap').clientHeight;
 let currentBtn = 'btnZonasVerdesBA', currentLegend = 'ldZonasVerdesBA';
 
 //Por defecto, zonas verdes de Buenos Aires
-createMap('buenos_pop_overcrowd');
+createMap('buenos_pop_overcrowd_2');
 
 document.getElementById('btnZonasVerdesBA').addEventListener('click', function () {
     if(currentBtn != 'btnZonasVerdesBA') {
@@ -52,11 +52,11 @@ function createMap(ciudad_tipo) {
             //Características del mapa
             mymap = L.map('buenosAiresMap').setView([-34.6158037, -58.5033387], 11);
 
-            mymap.touchZoom.disable();
-            mymap.doubleClickZoom.disable();
-            mymap.scrollWheelZoom.disable();
-            mymap.boxZoom.disable();
-            mymap.keyboard.disable();
+            // mymap.touchZoom.disable();
+            // mymap.doubleClickZoom.disable();
+            // mymap.scrollWheelZoom.disable();
+            // mymap.boxZoom.disable();
+            // mymap.keyboard.disable();
 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -66,16 +66,15 @@ function createMap(ciudad_tipo) {
 
             L.svg({clickable:true}).addTo(mymap);
 
-            svg = d3.select("#buenosAiresMap")
-                .select("svg")
-                .attr("pointer-events", "auto");
-                
-            g = svg.select("g");
+            const overlay = d3.select(mymap.getPanes().overlayPane);
+            const svg = overlay.select('svg').attr("pointer-events", "auto");
+            // create a group that is hidden during zooming
+            const g = svg.append('g').attr('class', 'leaflet-zoom-hide');
 
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            let data2 = topojson.feature(data, data.objects[ciudad_tipo]);
+            let data2 = topojson.feature(data, data.objects['buenos_pop_overcrowd']);
 
             let lines = g.selectAll("path")
                 .data(data2.features)
@@ -85,14 +84,11 @@ function createMap(ciudad_tipo) {
                 .attr("fill", "#228B22")
                 .attr("fill-opacity", '1');
 
-            mymap.on('viewreset', reset);
-            mymap.on('zoom', reset);
+            //mymap.on('viewreset', reset);
+            mymap.on('zoomend', reset);
 
             function reset(){
-                lines
-                    .attr("d", path)
-                    .attr("fill", '#228B22')
-                    .attr("fill-opacity", '1');
+                lines.attr("d", path);
             }
         });
 }
