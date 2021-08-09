@@ -1,75 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pruebas - HUD</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,800,900&amp;display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-    <h2 style="font-size: 16px; font-weight: bold; margin-top: 12px; margin-bottom: 48px;">Gráfico 1</h2>
-    <div class="outer-chart">
-        <div class="chart">
-            <div class="chart__b-title--upper">
-                <div class="chart__sb-title">
-                    <h1 class="chart__title">Espacio verde urbano per cápita en 21 ciudades</h1>
-                    <h2 class="chart__subtitle">Metros cuadrados per cápita</h2>
-                </div>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Prueba Leaflet + d3</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap" rel="stylesheet">
+        <link href="./style.css?v=20200619_v4" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+        
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <!-- Primero -->
+            <div>
+                <label for="layers">Elige un layer:</label>
+                <select name="layers" id="layers">
+                    <option value="carto">Carto DB</option>
+                    <option value="carto-v">Carto Voyager</option>
+                    <option value="stamen">Stamen</option>
+                    <option value="esri">ESRI</option>
+                </select>
             </div>
-            <div class="chart__viz large" id="chart-one">
+            
+            <!-- Segundo -->
+            <div>
+                <button class="btn active" id="btnZonasVerdesBA">Zonas verdes</button>
+                <button class="btn" id="btnCallesBA">Callejero > Distancia a zonas verdes</button>
             </div>
-            <p class="data-source"><span class="strong">Fuente:</span> Vivid Economics</p>           
+
+            <!-- Tercero -->
+            <div>
+                <p class="legend active" id="ldZonasVerdesBA">Leyenda para zonas verdes</p>
+                <p class="legend" id="ldCallesBA">Leyenda para callejero</p>
+            </div>
+
+            <!-- Cuarto -->
+            <div id="buenosAiresMap" class="map"></div>
         </div>
-    </div>
-    <h2 style="font-size: 16px; font-weight: bold; margin-top: 12px; margin-bottom: 48px;">Gráfico 2</h2>
-    <div class="outer-chart">
-        <div class="chart">
-            <div class="chart__b-title--upper">
-                <div class="chart__sb-title">
-                    <h1 class="chart__title">Distribución de espacios verdes en Bridgetown y San José</h1>
-                    <h2 class="chart__subtitle">Datos totales de espacios verdes según el tamaño del mismo</h2>
-                </div>
-            </div>
-            <div class="chart--double">
-                <div class="chart__viz" id="chart-two">
-                    <h2>Bridgetown</h2>
-                </div>
-                <div class="chart__viz" id="chart-two_bis">
-                    <h2>San Jose</h2>
-                </div>
-            </div>            
-            <p class="data-source"><span class="strong">Fuente:</span> Vivid Economics basado en Google Earth Engine</p>          
-        </div>
-    </div>
-    <h2 style="font-size: 16px; font-weight: bold; margin-top: 48px; margin-bottom: 48px;">Gráfico 3</h2>
-    <div class="outer-chart">
-        <div class="chart">
-            <div class="chart__b-title--upper">
-                <div class="chart__sb-title">
-                    <h1 class="chart__title">Porcentaje de población con acceso a espacios verdes</h1>
-                    <h2 class="chart__subtitle">Datos en porcentajes. Espacios verdes divididos según distancia</h2>
-                </div>
-            </div>
-            <div class="chart__legend">
-                <span class="chart__legend--item more-colors-first">Menos de 100 metros</span>
-                <span class="chart__legend--item more-colors-second">Entre 100 y 200 metros</span>
-                <span class="chart__legend--item more-colors-third">Entre 200 y 400 metros</span>
-                <span class="chart__legend--item more-colors-fourth">Entre 400 metros y 1 km</span>
-            </div>
-            <div class="chart__viz large" id="chart-three">
-            </div>
-            <p class="data-source"><span class="strong">Fuente:</span> Vivid Economics basado en Google Earth Engine</p>
-        </div>
-    </div>
-    <div class="chart__tooltip" id="chartTooltip">
-        <p class="chart__tooltip--title"></p>
-        <p class="chart__tooltip--text"></p>
-    </div>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="./js/tooltip.js"></script>
-    <script src="./js/main.js"></script>
-</body>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script src="./main.js"></script>
+    </body>
 </html>
