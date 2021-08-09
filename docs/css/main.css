@@ -8,7 +8,17 @@ body {font-family: 'Roboto', sans-serif;}
 .text-uppercase {text-transform: uppercase}
 .text-right {text-align: right}
 
-.wrapper {position: relative;}
+.wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 768px;
+
+    margin: 0 auto;
+}
+
+div {
+    margin: 20px auto;
+}
 
 .btn {
     background-color: #cecece;
