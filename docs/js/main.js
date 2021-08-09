@@ -100,7 +100,7 @@ function createMap(ciudad_tipo) {
 }
 
 function updateMap(ciudad_tipo) {
-    console.log("entra");
+    console.log("entra", ciudad_tipo);
     //Llamada al GitHub
     window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/' + ciudad_tipo + '.json')
         .then(function(response) {
@@ -110,10 +110,14 @@ function updateMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            let data2 = topojson.feature(data, data.objects.ciudad_tipo);         
+            console.log(data);
+
+            let data2 = topojson.feature(data, data.objects.ciudad_tipo); 
+            
+            console.log(data2);
 
             let lines = g.selectAll("path")
-                .data(data.features)
+                .data(data2.features)
                 .enter()
                 .append("path")
                 .attr("d", path)
