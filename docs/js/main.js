@@ -61,12 +61,12 @@ function createMap(ciudad_tipo) {
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
                 subdomains: 'abcd',
-                maxZoom: 19
+                maxZoom: 22
             }).addTo(mymap);
 
             L.svg({clickable:true}).addTo(mymap);
 
-            svg = d3.select("#map")
+            svg = d3.select("#buenosAiresMap")
                 .select("svg")
                 .attr("pointer-events", "auto");
                 
@@ -75,18 +75,14 @@ function createMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            console.log(data, ciudad_tipo);
-
             let data2 = topojson.feature(data, data.objects[ciudad_tipo]);
-
-            console.log(data2);
 
             let lines = g.selectAll("path")
                 .data(data2.features)
                 .enter()
                 .append("path")
                 .attr("d", path)
-                .attr("fill", 'red')
+                .attr("fill", "#228B22")
                 .attr("fill-opacity", '1');
 
             mymap.on('viewreset', reset);
@@ -102,7 +98,6 @@ function createMap(ciudad_tipo) {
 }
 
 function updateMap(ciudad_tipo) {
-    console.log("entra", ciudad_tipo);
     //Llamada al GitHub
     window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/' + ciudad_tipo + '.json')
         .then(function(response) {
@@ -112,11 +107,7 @@ function updateMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            console.log(data);
-
-            let data2 = topojson.feature(data, data.objects[ciudad_tipo]); 
-            
-            console.log(data2);
+            let data2 = topojson.feature(data, data.objects[ciudad_tipo]);
 
             let lines = g.selectAll("path")
                 .data(data2.features)
@@ -131,7 +122,7 @@ function updateMap(ciudad_tipo) {
 
             function reset(){
                 lines
-                    .data(data.features)
+                    .data(data2.features)
                     .attr("d", path)
                     .attr("fill", '#228B22')
                     .attr("fill-opacity", '1');
