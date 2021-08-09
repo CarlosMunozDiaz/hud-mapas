@@ -44,14 +44,9 @@ document.getElementById('layers').addEventListener('change', function(e) {
 //Funciones
 function createMap(ciudad_tipo) {
     //Llamada al GitHub
-    Promise.all([
-        window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas_topo.json'),
-        window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/' + ciudad_tipo + '.json')
-    ]).then(function([poligonos, dataVerde]) {
-        console.log(poligonos.json());
-        console.log(dataVerde.json());
-            let prueba = [poligonos.json(), dataVerde.json()];
-            return prueba;
+    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/ba_comunas_topo.json')
+        .then(function(response) {
+            return response.json();
         })
         .then(function(data) {
             console.log(data);
@@ -81,7 +76,7 @@ function createMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            let data2 = topojson.feature(data, data.objects['buenos_pop_overcrowd']);
+            let data2 = topojson.feature(data, data.objects['ba_comunas']);
 
             console.log(data2);
 
