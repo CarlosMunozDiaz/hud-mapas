@@ -33,7 +33,7 @@ document.getElementById('btnCallesBA').addEventListener('click', function () {
         //Ejecución funciones
         setBtn(currentBtn);
         setLegend(currentLegend);
-        updateMap('buenos_aires_roads');
+        updateMap('buenos_aires_distance');
     }
 });
 
@@ -75,7 +75,7 @@ function createMap(ciudad_tipo) {
             let transform = d3.geoTransform({point: projectPoint});
             let path = d3.geoPath().projection(transform);
 
-            let data2 = topojson.feature(data, data.objects.buenos_pop_overcrowd);
+            let data2 = topojson.feature(data, data.objects.ciudad_tipo);
 
             console.log(data2);
 
