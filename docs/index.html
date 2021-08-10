@@ -8,7 +8,36 @@
 		<link type="text/css" rel="stylesheet" href="./css/main.css" />
 	</head>
 	<body>
-		<div id="leaflet"></div>
+        <div class="container">
+            <!-- Primero -->
+            <div class="box">
+                <label for="layers">Elige un layer:</label>
+                <select name="layers" id="layers">
+                    <option value="open-street">OpenStreetMap</option>
+                    <option value="carto">Carto DB</option>
+                    <option value="carto-v">Carto Voyager</option>
+                    <option value="stamen">Stamen</option>
+                    <option value="esri">ESRI</option>
+                </select>
+            </div>
+
+            <!-- Segundo -->
+            <div class="box">
+                <button class="btn active" id="btnZonasVerdesBA">Zonas verdes</button>
+                <button class="btn" id="btnCallesBA">Callejero > Distancia a zonas verdes</button>
+            </div>
+
+            <!-- Tercero -->
+            <div class="box">
+                <p class="legend active" id="ldZonasVerdesBA">Leyenda para zonas verdes</p>
+                <p class="legend" id="ldCallesBA">Leyenda para callejero</p>
+            </div>
+
+            <!-- Mapa -->
+            <div id="leaflet"></div>
+        </div>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
 		<script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
 		<script src="./js/main.js"></script>
 	</body>

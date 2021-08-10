@@ -1,6 +1,36 @@
-body {
-	margin: 0;
+html, body, p {
+	width: 100%;
+	margin: 0 auto;
 }
-html, body, #leaflet {
-	height: 100%
+
+.container {
+	width: 100%;
+	max-width: 768px;
+
+	margin: 0 auto;
+}
+
+.box {
+	margin: 20px auto;
+}
+
+.btn {
+    background-color: #cecece;
+}
+.btn.active {
+    background-color: #fff;
+}
+
+.legend {
+    display: none;
+}
+
+.legend.active {
+    display: block;
+}
+
+#leaflet {
+	width: 100%;
+	max-width: 768px;
+	height: 525px;
 }
