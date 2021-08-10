@@ -81,7 +81,7 @@ function initData() {
         });
         
     //Cargamos los datos pesados (tras pintar el mapa y por debajo)
-    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/buenos_roads_distance.json')
+    window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/buenos_roads_distance_2.json')
         .then(function(response) {
             return response.json();
         })
