@@ -1,6 +1,6 @@
 //Variables globales
 let mymap;
-let svg, g, lines;
+let svg, g, lines, transform, path;
 let currentBtn = 'btnZonasVerdesBA', currentLegend = 'ldZonasVerdesBA';
 let dataOvercrowdBA, dataDistanceBA;
 
@@ -44,8 +44,9 @@ function initData() {
             return response.json();
         })
         .then(function(response) {
-            dataOvercrowdBA = response;
-            mymap = L.map('leaflet').setView([-34.6158037, -58.5033387], 10);
+            dataOvercrowdBA = topojson.feature(response, response.objects['buenos_pop_overcrowd']);
+
+            mymap = L.map('leaflet').setView([-34.6158037, -58.5033387], 9.5);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -59,17 +60,16 @@ function initData() {
                 
             g = svg.select("g");
 
-            let transform = d3.geoTransform({point: projectPoint});
-            let path = d3.geoPath().projection(transform);
-
-            let data = topojson.feature(dataOvercrowdBA, dataOvercrowdBA.objects['buenos_pop_overcrowd']);            
+            transform = d3.geoTransform({point: projectPoint});
+            path = d3.geoPath().projection(transform);                        
 
             let lines = g.selectAll("path")
-                .data(data.features)
+                .data(dataOvercrowdBA.features)
                 .enter()
                 .append("path")
                 .attr("d", path)
-                .attr("fill", "green")
+                .attr("class", 'greenspace')
+                .attr("fill", "#228B22")
                 .attr("fill-opacity", '1');
 
             mymap.on('viewreset', reset);
@@ -79,22 +79,44 @@ function initData() {
                 lines.attr("d", path);
             }
         });
-
+        
     //Cargamos los datos pesados (tras pintar el mapa y por debajo)
     window.fetch('https://raw.githubusercontent.com/CarlosMunozDiaz/hud-mapas/main/docs/data/buenos_roads_distance.json')
         .then(function(response) {
             return response.json();
         })
         .then(function(response) {
-            dataDistanceBA = response;
+            dataDistanceBA = topojson.feature(response, response.objects['buenos_roads_distance']);
+
+            let lines = g.selectAll(".roads")
+                .data(dataDistanceBA.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("class", 'roads')
+                .attr("fill", 'none')
+                .attr("stroke-width", '0px')
+                .attr("stroke", 'red');
+
+            mymap.on('viewreset', reset);
+            mymap.on('zoomend', reset);
+
+            function reset(){
+                lines.attr("d", path);
+            }
         });
 }
 
 function updateMap(tipo) {
-    console.log(tipo);
     if(tipo == 'buenos_pop_overcrowd') {
 
+        g.selectAll('.roads').attr('stroke-width', '0');
+        g.selectAll(".greenspace").attr("fill", '#228B22');
+
     } else {
+
+        g.selectAll('.greenspace').attr('fill', 'none');
+        g.selectAll('.roads').attr('stroke-width', '.5px');
 
     }
 }
